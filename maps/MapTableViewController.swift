@@ -10,6 +10,7 @@ import UIKit
 
 class MapTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var mapTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,12 +19,15 @@ class MapTableViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Annotations.MapAnnotations.insert(contentsOf: Annotations.pointsIAdded, at: 0)  // put my stuff up at the top
+        mapTableView.reloadData()
+        print("Data reloaded.")
+        //Annotations.MapAnnotations.insert(contentsOf: Annotations.pointsIAdded, at: 0)  // put my stuff up at the top
     }
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let annotationURL = Annotations.MapAnnotations[indexPath.row].subtitle, annotationURL != "" else {
+        guard let annotationURL = Annotations.MapAnnotations[indexPath.row].subtitle/*, annotationURL != ""*/ else {
+            print("err")
             return
         }
         let link = URL(string: annotationURL)

@@ -12,20 +12,19 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     var annotation: MKPointAnnotation? = nil // temp storage for posted point
+   /* override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //self.mapView.addAnnotations(Annotations.pointsIAdded)
+    }*/
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.mapView.addAnnotations(Annotations.pointsIAdded)
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         NetworkRequests.getLocations {
             for locations in Annotations.MapPoints {
-                print(locations)
-                guard locations["longitude"] as? Double != nil else{
+                //print(locations)
+                /*guard locations["longitude"] as? Double != nil else{
                     continue
-                }
+                }*/
                 let annot = MKPointAnnotation()
                 
                 annot.title = "\(locations["firstName"] as? String ?? "") \(locations["lastName"] as? String ?? "")"
@@ -37,8 +36,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 Annotations.MapAnnotations.append(annot)
                 //Annotations.shouldReloadData = false
             }
-        }
 
+    }
+    
     }
     
     

@@ -13,10 +13,12 @@ struct Constants {
         struct parameters {
             static let AppID = "X-Parse-Application-Id"
             static let APIKey = "X-Parse-REST-API-Key"
+            static let contentType = "Content-Type"
         }
         struct values {
             static let APIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
             static let appID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+            static let contentType = "application/json"
         }
     }
     
@@ -28,6 +30,7 @@ struct Constants {
             static let cookieName = "XSRF-TOKEN"
         }
         static var userID = ""
+        
     }
     
     enum requestType: String {

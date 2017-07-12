@@ -27,23 +27,27 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         print(linkText)
         // make post request
         let studentLocationURL = "https://parse.udacity.com/parse/classes/StudentLocation"
-        let values = ["X-Parse-Application-Id": "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr",
-                      "X-Parse-REST-API-Key": "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY",
-                      "Content-Type": "Content-Type"
+        let values = [Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
+                      Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey,
+                      Constants.Parse.parameters.contentType: Constants.Parse.values.contentType
+            
         ]
         
+        print("Point -> (\(pointAnnotation.coordinate.latitude),\(pointAnnotation.coordinate.longitude))")
     
-        let httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Mihir\", \"lastName\": \"Thanekar\",\"mapString\": \"\(String(describing: pointAnnotation.title))\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
+        self.pointAnnotation.subtitle = linkText
         
-        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: studentLocationURL, addValues: values, httpBody: httpBody, completionHandler: {(data, error) in
+        let httBody = "{\"uniqueKey\": \"12b2z\", \"firstName\": \"Mihir\", \"lastName\": \"Thanekar\",\"mapString\": \"\(pointAnnotation.subtitle ?? "Unknown")\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
+        /*
+        let httpBody = "{\"uniqueKey\": \"a2z\", \"firstName\": \"Mihir\", \"lastName\": \"Thanekar\",\"mapString\": \"\(String(describing: pointAnnotation.title))\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
+        */
+        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: studentLocationURL, addValues: values, httpBody: httBody, completionHandler: {(data, error) in
             guard error == nil, let data = data else {
                 print("error with POST")
                 return
             }
-            
-            print(data)
-            self.pointAnnotation.subtitle = linkText
-            Annotations.pointsIAdded.append(self.pointAnnotation)   // TODO: FIX THIS LINE TO BE FOR ANNOTATION.MAPPOINTS
+                        
+            //Annotations.pointsIAdded.append(self.pointAnnotation)   // TODO: FIX THIS LINE TO BE FOR ANNOTATION.MAPPOINTS
             
             DispatchQueue.main.async {
                 self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
