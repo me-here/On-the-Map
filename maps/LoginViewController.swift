@@ -40,20 +40,19 @@ class LoginViewController: UIViewController {
         headers["Accept"] = "application/json" // Accept is unique. application/json isn't.
         headers["Content-Type"] = "application/json"
         let httpBody = "{\"udacity\": {\"username\": \"\(emailField.text ?? "")\", \"password\": \"\(passwordField.text ?? "")\"}}"
-        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: Constants.Udacity.sessionURL, addValues: headers, httpBody: httpBody, completionHandler: {(data, error) in
-            guard let data = data, error == nil else {
-                self.displayError(message: "No network.")
-                return
-            }
-            let range = Range(5..<data.count)
-            let newData = data.subdata(in: range)
-            do{ // Place in networking class
-                let credentials = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as? [String: AnyObject]
-                
-                guard let account = credentials?["account"] as? [String: AnyObject],
+        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: Constants.Udacity.sessionURL, addValues: headers, httpBody: httpBody,isUdacityRequest: true, completionHandler: {(data, error) in
+                guard let data = data, error == nil else {
+                    self.displayError(message: "No network.")
+                    return
+                }
+
+            
+            
+            
+                guard let account = data["account"] as? [String: AnyObject],
                     let registered = account["registered"] as? Bool,
                     let key = account["key"] as? String else {
-                    self.displayError(message: "Account not registered.")
+                    self.displayError(message: "Account not registered or incorrect username/ password.")
                     return
                 }
                 
@@ -62,18 +61,14 @@ class LoginViewController: UIViewController {
                 
                 
                 //pointInfo.getAnnotationArray() // About to perform segue so get data here
-                let session = credentials?["session"] as! [String: AnyObject]
+                let session = data["session"] as! [String: AnyObject]
                 let id = session["id"] as! String
                 print(id)
                 print(registered)
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "loginSegue", sender: self)
                 }
-            }catch{
-                print("Serialization error")
-                return
-            }
-        })
+            })
     }
     
     func displayError(title:String? = "Login Failure",message: String) {

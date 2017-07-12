@@ -35,15 +35,15 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
     
         let httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Mihir\", \"lastName\": \"Thanekar\",\"mapString\": \"\(String(describing: pointAnnotation.title))\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
         
-        NetworkRequests.requestWith(requestType: "POST", requestURL: studentLocationURL, addValues: values, httpBody: httpBody, completionHandler: {(data, error) in
+        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: studentLocationURL, addValues: values, httpBody: httpBody, completionHandler: {(data, error) in
             guard error == nil, let data = data else {
                 print("error with POST")
                 return
             }
             
-            print(String(data: data, encoding: .utf8)!)
+            print(data)
             self.pointAnnotation.subtitle = linkText
-            Annotations.pointsIAdded.append(self.pointAnnotation)
+            Annotations.pointsIAdded.append(self.pointAnnotation)   // TODO: FIX THIS LINE TO BE FOR ANNOTATION.MAPPOINTS
             
             DispatchQueue.main.async {
                 self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)

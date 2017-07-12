@@ -34,14 +34,13 @@ class SettingsViewController: UIViewController {
         if let xsrfCookie = xsrfCookie {    // nil check
             headers[Constants.Udacity.sessionCookie.headerName] = xsrfCookie.value
         }
-        NetworkRequests.requestWith(requestType: Constants.requestType.DELETE.rawValue, requestURL: Constants.Udacity.sessionURL, addValues: headers, httpBody: nil, completionHandler: {(data,error) in
+        NetworkRequests.requestWith(requestType: Constants.requestType.DELETE.rawValue, requestURL: Constants.Udacity.sessionURL, addValues: headers, httpBody: nil, isUdacityRequest: true, completionHandler: {(data,error) in
             guard let data = data, error == nil else {
                 print("Network failure.")
                 return
             }
-            let range = Range(5..<data.count)
-            let newData = data.subdata(in: range)
-            print(String(data: newData, encoding: String.Encoding.utf8) ?? "Failure")
+
+            print(data)
         })
     }
 }
