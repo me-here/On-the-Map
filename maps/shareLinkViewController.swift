@@ -46,7 +46,7 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
                 print("error with POST")
                 return
             }
-                        
+            print(data)
             //Annotations.pointsIAdded.append(self.pointAnnotation)   // TODO: FIX THIS LINE TO BE FOR ANNOTATION.MAPPOINTS
             
             DispatchQueue.main.async {

@@ -12,10 +12,13 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     var annotation: MKPointAnnotation? = nil // temp storage for posted point
-   /* override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //self.mapView.addAnnotations(Annotations.pointsIAdded)
-    }*/
+   
+    @IBAction func logout(_ sender: Any) {
+        NetworkRequests.deleteSession()
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

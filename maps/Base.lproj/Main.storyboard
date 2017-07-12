@@ -119,7 +119,12 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="On the Map" id="xo0-4y-YH0">
-                                        <barButtonItem key="leftBarButtonItem" image="pin" id="aOM-zM-vW0">
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="GHR-Oi-4Uf">
+                                            <connections>
+                                                <action selector="logout:" destination="Whi-q6-DKY" id="OfL-Y5-EQz"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" image="pin" id="aOM-zM-vW0">
                                             <connections>
                                                 <segue destination="CHL-uf-0HN" kind="presentation" id="ISE-mh-mpa"/>
                                             </connections>
@@ -182,38 +187,6 @@
             </objects>
             <point key="canvasLocation" x="886" y="381"/>
         </scene>
-        <!--Settings-->
-        <scene sceneID="901-0I-mHJ">
-            <objects>
-                <viewController id="i30-iu-fBu" customClass="SettingsViewController" customModule="maps" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5eg-fs-pEQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="Qd2-jN-XQZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="DOP-OB-sJa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vFo-DL-eZe">
-                                <rect key="frame" x="126" y="119" width="123" height="30"/>
-                                <state key="normal" title="Logout of Udacity"/>
-                                <connections>
-                                    <action selector="udacityLogout:" destination="i30-iu-fBu" eventType="touchUpInside" id="JnL-bG-oMg"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="vFo-DL-eZe" firstAttribute="centerX" secondItem="DOP-OB-sJa" secondAttribute="centerX" id="eUR-wG-Anr"/>
-                            <constraint firstItem="vFo-DL-eZe" firstAttribute="top" secondItem="5eg-fs-pEQ" secondAttribute="bottom" constant="99" id="tva-qG-vut"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="MhG-Ay-caL"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3pz-re-N3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-63" y="827"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="iPj-Zx-4f1">
             <objects>
@@ -226,7 +199,6 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="78N-GK-Bwy"/>
                         <segue destination="Whi-q6-DKY" kind="relationship" relationship="viewControllers" id="F3q-Op-0Nt"/>
-                        <segue destination="i30-iu-fBu" kind="relationship" relationship="viewControllers" id="arp-gq-nXS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="837-y2-Ea3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -255,7 +227,12 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="On the Map" id="flr-uB-0tG">
-                                        <barButtonItem key="leftBarButtonItem" image="pin" id="idQ-E1-Q4T">
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="ntQ-tN-rBv">
+                                            <connections>
+                                                <action selector="logout:" destination="BYZ-38-t0r" id="gLP-ht-E5p"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" image="pin" id="idQ-E1-Q4T">
                                             <connections>
                                                 <segue destination="CHL-uf-0HN" kind="presentation" id="ZiZ-VD-PzL"/>
                                             </connections>

@@ -72,4 +72,26 @@ class NetworkRequests {
         })
     }
     
+    static func deleteSession() {
+        var headers: [String: String] = [:]
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == Constants.Udacity.sessionCookie.cookieName {
+                xsrfCookie = cookie
+            }
+        }
+        if let xsrfCookie = xsrfCookie {    // nil check
+            headers[Constants.Udacity.sessionCookie.headerName] = xsrfCookie.value
+        }
+        NetworkRequests.requestWith(requestType: Constants.requestType.DELETE.rawValue, requestURL: Constants.Udacity.sessionURL, addValues: headers, httpBody: nil, isUdacityRequest: true, completionHandler: {(data,error) in
+            guard let data = data, error == nil else {
+                print("Network failure.")
+                return
+            }
+            
+            print(data)
+        })
+    }
+    
 }

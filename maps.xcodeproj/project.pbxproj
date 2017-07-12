@@ -20,7 +20,6 @@
 		4310D89B1F1407730008D89C /* MapTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4310D89A1F1407730008D89C /* MapTableViewController.swift */; };
 		4310D89D1F144EE10008D89C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4310D89C1F144EE10008D89C /* Extensions.swift */; };
 		4310D89F1F14750E0008D89C /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4310D89E1F14750E0008D89C /* AddLocationViewController.swift */; };
-		4310D8A11F147FF10008D89C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4310D8A01F147FF10008D89C /* SettingsViewController.swift */; };
 		4310D8A31F14958E0008D89C /* shareLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4310D8A21F14958E0008D89C /* shareLinkViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +39,6 @@
 		4310D89A1F1407730008D89C /* MapTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewController.swift; sourceTree = "<group>"; };
 		4310D89C1F144EE10008D89C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4310D89E1F14750E0008D89C /* AddLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
-		4310D8A01F147FF10008D89C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4310D8A21F14958E0008D89C /* shareLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shareLinkViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,7 +99,6 @@
 				4310D89A1F1407730008D89C /* MapTableViewController.swift */,
 				4310D89C1F144EE10008D89C /* Extensions.swift */,
 				4310D89E1F14750E0008D89C /* AddLocationViewController.swift */,
-				4310D8A01F147FF10008D89C /* SettingsViewController.swift */,
 				4310D8A21F14958E0008D89C /* shareLinkViewController.swift */,
 			);
 			name = Controller;
@@ -193,7 +190,6 @@
 			files = (
 				4310D8951F13072A0008D89C /* Constants.swift in Sources */,
 				4310D89D1F144EE10008D89C /* Extensions.swift in Sources */,
-				4310D8A11F147FF10008D89C /* SettingsViewController.swift in Sources */,
 				4310D88E1F12DD8E0008D89C /* LoginViewController.swift in Sources */,
 				4310D8A31F14958E0008D89C /* shareLinkViewController.swift in Sources */,
 				4310D8971F13084C0008D89C /* NetworkRequests.swift in Sources */,

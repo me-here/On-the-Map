@@ -24,6 +24,12 @@ class MapTableViewController: UIViewController, UITableViewDelegate, UITableView
         //Annotations.MapAnnotations.insert(contentsOf: Annotations.pointsIAdded, at: 0)  // put my stuff up at the top
     }
     
+    @IBAction func logout(_ sender: Any) {
+        NetworkRequests.deleteSession()
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let annotationURL = Annotations.MapAnnotations[indexPath.row].subtitle/*, annotationURL != ""*/ else {
