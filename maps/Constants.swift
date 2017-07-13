@@ -20,6 +20,7 @@ struct Constants {
             static let appID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
             static let contentType = "application/json"
         }
+        static var shouldReloadData = true
     }
     
     struct Udacity {

@@ -37,24 +37,33 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
         }
         geocoder.geocodeAddressString(locationText, completionHandler: {(placemark, error) in
             guard error == nil else {
-                self.displayError(message: "Network error.")
+                self.displayError(message: "Geocode failure.")
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
                 return
             }
             
             guard let showPinController = self.storyboard?.instantiateViewController(withIdentifier: "showPin") as? shareLinkViewController else {
                 print("something went wrong")
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
                 return
             }
             
             guard let location = placemark?[0].location?.coordinate else {
                 print("location err")
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
                 return
             }
             let regionn = placemark?[0].region as! CLCircularRegion
             showPinController.region = MKCoordinateRegionMakeWithDistance(location, regionn.radius, regionn.radius)
             
             showPinController.pointAnnotation.coordinate = location
-            showPinController.pointAnnotation.title = "Mihir Thanekar"  // Get Name from info
+            showPinController.pointAnnotation.title = "\(Constants.Udacity.firstName) \(Constants.Udacity.lastName)"  // Get Name from info
             
             DispatchQueue.main.async{
                 self.activityIndicator.stopAnimating()

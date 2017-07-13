@@ -30,7 +30,7 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         }
         print(linkText)
         // make post request
-        let studentLocationURL = "https://parse.udacity.com/parse/classes/StudentLocation"
+        
         let values = [Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
                       Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey,
                       Constants.Parse.parameters.contentType: Constants.Parse.values.contentType
@@ -43,7 +43,7 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         
         let httBody = "{\"uniqueKey\": \"\(self.uniqueHash(numberOfCharacters: 6))\", \"firstName\": \"\(Constants.Udacity.firstName)\", \"lastName\": \"\(Constants.Udacity.lastName)\",\"mapString\": \"\(pointAnnotation.subtitle ?? "Unknown")\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
         
-        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: studentLocationURL, addValues: values, httpBody: httBody, completionHandler: {
+        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: Constants.Udacity.studentLocationsURL, addValues: values, httpBody: httBody, completionHandler: {
             (data, error) in
                 guard error == nil, let data = data else {
                     self.displayError(message: "Error with POST")

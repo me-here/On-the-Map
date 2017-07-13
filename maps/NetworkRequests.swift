@@ -54,24 +54,6 @@ class NetworkRequests {
         return newData
     }
     
-    static func getLocations(completionHandler: @escaping () -> Void) {
-        let values: [String: String] = [
-            "X-Parse-Application-Id": "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr",
-            "X-Parse-REST-API-Key": "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
-        ]
-        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.studentLocationsURL, addValues: values, httpBody: nil, completionHandler: {(data, error) in
-            //print(String(data: data, encoding: .utf8) ?? "Failure")
-            guard let data = data, error == nil else {
-                print("pin load err")
-                return
-            }
-            
-            let results = data["results"] as! [[String: AnyObject]]
-            Annotations.MapPoints = results
-            completionHandler()
-        })
-    }
-    
     static func deleteSession() {
         var headers: [String: String] = [:]
         var xsrfCookie: HTTPCookie? = nil

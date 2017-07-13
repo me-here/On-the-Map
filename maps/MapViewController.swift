@@ -11,7 +11,7 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
-    var annotation: MKPointAnnotation? = nil // temp storage for posted point
+    //var annotation: MKPointAnnotation? = nil // temp storage for posted point
     
     @IBAction func logout(_ sender: Any) {
         NetworkRequests.deleteSession()
@@ -22,7 +22,24 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NetworkRequests.getLocations {
+        guard Constants.Parse.shouldReloadData else {
+            return
+        }
+        
+        let values: [String: String] = [
+            Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
+            Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey
+        ]
+        
+        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.studentLocationsURL, addValues: values, httpBody: nil, completionHandler: {(data, error) in
+            guard let data = data, error == nil else {
+                self.displayError(message: "Pin loading error")
+                return
+            }
+            print(data)
+            
+            let results = data["results"] as! [[String: AnyObject]]
+            Annotations.MapPoints = results
             for locations in Annotations.MapPoints {
                 let annot = MKPointAnnotation()
                 
@@ -35,8 +52,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }
                 Annotations.MapAnnotations.append(annot)
             }
-            
-        }
+          Constants.Parse.shouldReloadData = false
+        })
+        print("Reloaded map")
         
     }
     
@@ -55,5 +73,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         UIApplication.shared.open(link, options: [:], completionHandler: nil)
         
     }
+    
+    private func displayError(title:String? = "Download failure",message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(.init(title: "Retry", style: .default, handler: {_ in
+            Constants.Parse.shouldReloadData = true
+            self.viewWillAppear(true)
+        }))
+        alert.addAction(.init(title: "Give up", style: .destructive, handler: {_ in
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
 }
 
