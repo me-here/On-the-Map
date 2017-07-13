@@ -63,7 +63,7 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
             
             showPinController.pointAnnotation.coordinate = location
             showPinController.pointAnnotation.title = "\(model.firstName) \(model.lastName)"  // Get Name from info
-            print(showPinController.pointAnnotation.title ?? "no title")
+            //print(showPinController.pointAnnotation.title ?? "no title")
             
             DispatchQueue.main.async{
                 self.activityIndicator.stopAnimating()

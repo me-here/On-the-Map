@@ -35,13 +35,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 self.displayError(message: "Pin loading error")
                 return
             }
-            print(data)
+            //print(data)
             
             let results = data["results"] as! [[String: AnyObject]]
             _ = model(allPoints: results)
             
-            
             for pinInfo in model.allStudentsInfo {
+                //print(pinInfo.name, pinInfo.link)
                 let annot = MKPointAnnotation()
                 
                 annot.title = pinInfo.name

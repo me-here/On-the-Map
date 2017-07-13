@@ -26,7 +26,7 @@ class NetworkRequests {
             guard error == nil, let bytesData = data else {
                 completionHandler(nil, error)
                 print("problem")
-                print(error ?? "dfds")
+                print(error ?? "Something went wrong")
                 return
             }
             

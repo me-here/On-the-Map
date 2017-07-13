@@ -25,10 +25,12 @@ class model {
     static var allStudentsInfo = [StudentInformation]()
     
     init(allPoints: [[String: AnyObject]]) {
+        var tempStudentInfo = [StudentInformation]()
         for studentInfo in allPoints {
             let info = StudentInformation(studentInfo: studentInfo)
-            model.allStudentsInfo.append(info)
+            tempStudentInfo.append(info) //model.allStudentsInfo.append(info)
         }
+        model.allStudentsInfo = tempStudentInfo
     }
     
     static var userID = ""

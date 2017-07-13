@@ -11,16 +11,6 @@ import UIKit
 class MapTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var mapTableView: UITableView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        mapTableView.reloadData()
-        print("Data reloaded.")
-    }
-    
     @IBAction func logout(_ sender: Any) {
         NetworkRequests.deleteSession()
         DispatchQueue.main.async {
