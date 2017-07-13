@@ -70,6 +70,9 @@
                                 <state key="normal" title="Don't have an account? Sign Up">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUp:" destination="UHc-4M-UMA" eventType="touchUpInside" id="Kye-mJ-NMH"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.81745717005076146" green="0.47422835111718104" blue="0.010517662129013958" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -33,6 +33,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 annot.title = "\(locations["firstName"] as? String ?? "") \(locations["lastName"] as? String ?? "")"
                 annot.subtitle = locations["mediaURL"] as? String ?? ""
                 annot.coordinate = CLLocationCoordinate2D(latitude: locations["latitude"] as? Double ?? 0, longitude: locations["longitude"] as? Double ?? 0)
+                
                 DispatchQueue.main.async {
                     self.mapView.addAnnotation(annot)
                 }
@@ -47,11 +48,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("hoo")
+        view.rightCalloutAccessoryView = UIButton(type: .infoLight)
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        print("aa")
+        guard let linkString = view.annotation?.subtitle as? String, !linkString.isEmpty else {
+            print("Empty link in pin")
+            return
+        }
+        let link = URL(string: linkString)!
+        UIApplication.shared.open(link, options: [:], completionHandler: nil)
+        
     }
     
     //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

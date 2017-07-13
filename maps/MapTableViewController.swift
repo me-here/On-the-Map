@@ -37,14 +37,13 @@ class MapTableViewController: UIViewController, UITableViewDelegate, UITableView
             return
         }
         let link = URL(string: annotationURL)
-        UIApplication.shared.open(link!, options: [:], completionHandler: {
-        bool in
-            print("yup")
-        })
+        UIApplication.shared.open(link!, options: [:], completionHandler: nil)
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Annotations.MapAnnotations.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mapTableViewCell")
         cell?.textLabel?.text = Annotations.MapAnnotations[indexPath.row].title

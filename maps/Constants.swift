@@ -30,6 +30,7 @@ struct Constants {
             static let cookieName = "XSRF-TOKEN"
         }
         static var userID = ""
+        static let udacitySignUpURLString = "https://auth.udacity.com/sign-up?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated"
         
     }
     

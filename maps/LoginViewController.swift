@@ -30,6 +30,10 @@ class LoginViewController: UIViewController {
         passwordField.text = ""
     }
     
+    @IBAction func signUp(_ sender: Any) {
+        UIApplication.shared.open(URL(string: Constants.Udacity.udacitySignUpURLString)!, options: [:], completionHandler: nil)
+    }
+    
     @IBAction func loginPressed(_ sender: Any) {
         guard !(emailField.text?.isEmpty)! && !(passwordField.text?.isEmpty)! else {
             self.displayError(title: "Empty Field/s", message: "Email and/ or password empty")
@@ -45,9 +49,6 @@ class LoginViewController: UIViewController {
                     self.displayError(message: "No network.")
                     return
                 }
-
-            
-            
             
                 guard let account = data["account"] as? [String: AnyObject],
                     let registered = account["registered"] as? Bool,
@@ -57,10 +58,7 @@ class LoginViewController: UIViewController {
                 }
                 
                 Constants.Udacity.userID = key
-                
-                
-                
-                //pointInfo.getAnnotationArray() // About to perform segue so get data here
+
                 let session = data["session"] as! [String: AnyObject]
                 let id = session["id"] as! String
                 print(id)
