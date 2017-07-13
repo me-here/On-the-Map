@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "maps/Annotations.swift"
-            timestampString = "521664221.970234"
+            timestampString = "521669407.529463"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "init(studentInfo:)"
             landmarkType = "7">
          </BreakpointContent>

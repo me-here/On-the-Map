@@ -11,7 +11,6 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
-    //var annotation: MKPointAnnotation? = nil // temp storage for posted point
     
     @IBAction func logout(_ sender: Any) {
         NetworkRequests.deleteSession()
@@ -40,7 +39,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             let results = data["results"] as! [[String: AnyObject]]
             _ = model(allPoints: results)
-            //Annotations.MapPoints = results
+            
             
             for pinInfo in model.allStudentsInfo {
                 let annot = MKPointAnnotation()
@@ -52,7 +51,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 DispatchQueue.main.async {
                     self.mapView.addAnnotation(annot)
                 }
-                //Annotations.MapAnnotations.append(annot)
+                
             }
           Constants.Parse.shouldReloadData = false
         })

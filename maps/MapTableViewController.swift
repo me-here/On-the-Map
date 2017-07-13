@@ -38,13 +38,13 @@ class MapTableViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.allStudentsInfo.count//Annotations.MapAnnotations.count
+        return model.allStudentsInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mapTableViewCell")
-        cell?.textLabel?.text = model.allStudentsInfo[indexPath.row].name //Annotations.MapAnnotations[indexPath.row].title
-        cell?.detailTextLabel?.text = model.allStudentsInfo[indexPath.row].link//Annotations.MapAnnotations[indexPath.row].subtitle
+        cell?.textLabel?.text = model.allStudentsInfo[indexPath.row].name
+        cell?.detailTextLabel?.text = model.allStudentsInfo[indexPath.row].link
         cell?.imageView?.image = UIImage(named: "pin")
         cell?.accessoryType = .disclosureIndicator
         return cell ?? UITableViewCell()
