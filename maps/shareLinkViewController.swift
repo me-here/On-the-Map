@@ -51,7 +51,8 @@ class shareLinkViewController: UIViewController {
                 }
             
                 print(data)
-                Constants.Parse.shouldReloadData = true
+                model.shouldReloadData = true
+                model.tableViewShouldReloadData = true
                 DispatchQueue.main.async {
                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 }

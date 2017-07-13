@@ -20,7 +20,7 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard Constants.Parse.shouldReloadData else {   // Only reload map pins when we need to
+        guard model.shouldReloadData else {   // Only reload map pins when we need to
             return
         }
         
@@ -52,7 +52,7 @@ class MapViewController: UIViewController {
                 }
                 
             }
-          Constants.Parse.shouldReloadData = false
+          model.shouldReloadData = false
         })
         print("Reloaded map")
         
@@ -62,7 +62,7 @@ class MapViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(.init(title: "Retry", style: .default, handler: {_ in
             // We need to reload to retry
-            Constants.Parse.shouldReloadData = true
+            model.shouldReloadData = true
             self.viewWillAppear(true)
         }))
         alert.addAction(.init(title: "Give up", style: .destructive, handler: {_ in

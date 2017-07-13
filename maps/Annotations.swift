@@ -36,4 +36,6 @@ class model {
     static var userID = ""
     static var firstName = ""
     static var lastName = ""
+    static var shouldReloadData = true
+    static var tableViewShouldReloadData = true
 }
