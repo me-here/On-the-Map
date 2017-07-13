@@ -16,7 +16,7 @@ func setupTextField( _ textField: UITextField) {
     textField.returnKeyType = .done
 }
 
-func setupButton( _ button: UIButton) {
-    button.backgroundColor = UIColor(red: 0.808, green: 0.290, blue: 0.196, alpha: 1.0)
+func setupButton( _ button: UIButton, color: UIColor) {
+    button.backgroundColor = color
     button.layer.cornerRadius = 0  // Un- round the button
 }

@@ -10,18 +10,21 @@ import UIKit
 import MapKit
 
 class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
-
+    
     var pointAnnotation = MKPointAnnotation()
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var linkField: UITextField!
+    @IBOutlet weak var submitButton: UIButton!
+    
     @IBAction func cancel(_ sender: Any) {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
     @IBAction func submit(_ sender: Any) {
-        guard let linkText = linkField.text else {
-            print("empty text field")
+        guard let linkText = linkField.text, !linkText.isEmpty else {
+            self.displayError(message: "empty text field")
             return
         }
         print(linkText)
@@ -34,29 +37,25 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         ]
         
         print("Point -> (\(pointAnnotation.coordinate.latitude),\(pointAnnotation.coordinate.longitude))")
-    
+        
         self.pointAnnotation.subtitle = linkText
         
-        let httBody = "{\"uniqueKey\": \"12b2z\", \"firstName\": \"Mihir\", \"lastName\": \"Thanekar\",\"mapString\": \"\(pointAnnotation.subtitle ?? "Unknown")\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
-        /*
-        let httpBody = "{\"uniqueKey\": \"a2z\", \"firstName\": \"Mihir\", \"lastName\": \"Thanekar\",\"mapString\": \"\(String(describing: pointAnnotation.title))\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
-        */
-        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: studentLocationURL, addValues: values, httpBody: httBody, completionHandler: {(data, error) in
-            guard error == nil, let data = data else {
-                print("error with POST")
-                return
-            }
-            print(data)
-            //Annotations.pointsIAdded.append(self.pointAnnotation)   // TODO: FIX THIS LINE TO BE FOR ANNOTATION.MAPPOINTS
+        let httBody = "{\"uniqueKey\": \"\(self.uniqueHash(numberOfCharacters: 6))\", \"firstName\": \"\(Constants.Udacity.firstName)\", \"lastName\": \"\(Constants.Udacity.lastName)\",\"mapString\": \"\(pointAnnotation.subtitle ?? "Unknown")\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
+        
+        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: studentLocationURL, addValues: values, httpBody: httBody, completionHandler: {
+            (data, error) in
+                guard error == nil, let data = data else {
+                    self.displayError(message: "Error with POST")
+                    return
+                }
             
-            DispatchQueue.main.async {
-                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-            }
-        
+                print(data)
+            
+                DispatchQueue.main.async {
+                    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }
+            
         })
-        
-    
-        
     }
     
     override func viewDidLoad() {
@@ -65,6 +64,7 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         DispatchQueue.main.async {
             self.mapView.addAnnotation(self.pointAnnotation)
             self.mapView.setCenter(self.pointAnnotation.coordinate, animated: true)
+            setupButton(self.submitButton, color: UIColor(red: 139/255,green: 195/255,blue: 74/255,alpha: 1))
         }
         
     }
@@ -73,7 +73,32 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         textField.resignFirstResponder()
         return true
     }
+    
+     private func uniqueHash(numberOfCharacters: Int) -> String {
+        let alphaNumerics = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+        var hash = ""
+        
+        for _ in 1...numberOfCharacters {
+            let randomCharacterIndex = Int(arc4random_uniform(UInt32(alphaNumerics.characters.count)))
+            let randStringCharIndex = alphaNumerics.index(alphaNumerics.startIndex, offsetBy: randomCharacterIndex)
+            let char = alphaNumerics.substring(to: randStringCharIndex)
+            hash.append(char)
+        }
+        return hash
+    }
+    
+    private func displayError(title:String? = "Failure",message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(.init(title: "Ok", style: .cancel, handler: {_ in
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 
     
-
+    
 }

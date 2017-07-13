@@ -26,13 +26,13 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func findOnMap(_ sender: Any) {
         guard let locationText = locationLabel.text else {
-            print("empty location")
+            displayError(message: "Empty field/s")
             return
         }
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(locationText, completionHandler: {(placemark, error) in
             guard error == nil else {
-                print("err")
+                self.displayError(message: "Network error.")
                 return
             }
             
@@ -60,5 +60,18 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    private func displayError(title:String? = "Geocoding failure",message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(.init(title: "Ok", style: .cancel, handler: {_ in
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
     
 }

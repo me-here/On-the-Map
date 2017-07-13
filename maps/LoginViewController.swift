@@ -17,7 +17,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupButton(loginButton)
+        setupButton(loginButton, color: UIColor(red: 0.808, green: 0.290, blue: 0.196, alpha: 1.0))
         setupTextField(emailField)
         setupTextField(passwordField)
         emailField.delegate = self
@@ -79,12 +79,30 @@ class LoginViewController: UIViewController {
                 let id = session["id"] as! String
                 print(id)
                 print(registered)
+                self.getName()
             
                 self.stopAnimating()
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "loginSegue", sender: self)
                 }
             })
+    }
+    
+    private func getName() {
+        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.usersURL + Constants.Udacity.userID, addValues: [:], httpBody: nil, isUdacityRequest: true, completionHandler: {
+            (data, error) in
+            guard error == nil, let data = data else {
+                self.displayError(message: "Network error")
+                return
+            }
+            let user = data["user"] as! [String: AnyObject]
+            
+            let firstName = user["first_name"] as! String
+            let lastName = user["last_name"] as! String
+            Constants.Udacity.firstName = firstName
+            Constants.Udacity.lastName = lastName
+            print(firstName, lastName)
+        })
     }
     
     func displayError(title:String? = "Login Failure",message: String) {
