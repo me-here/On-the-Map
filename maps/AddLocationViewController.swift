@@ -17,6 +17,8 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationLabel.delegate = self
@@ -30,6 +32,9 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
             return
         }
         let geocoder = CLGeocoder()
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+        }
         geocoder.geocodeAddressString(locationText, completionHandler: {(placemark, error) in
             guard error == nil else {
                 self.displayError(message: "Network error.")
@@ -52,6 +57,7 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
             showPinController.pointAnnotation.title = "Mihir Thanekar"  // Get Name from info
             
             DispatchQueue.main.async{
+                self.activityIndicator.stopAnimating()
                 self.present(showPinController, animated: false, completion: nil)
             }
 

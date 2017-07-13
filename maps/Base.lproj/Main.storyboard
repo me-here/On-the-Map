@@ -338,23 +338,34 @@ V2hlcmUgYXJlIHlvdeKAqBBzdHVkeWluZ+KAqHRvZGF5Pw
                                     <action selector="findOnMap:" destination="CHL-uf-0HN" eventType="touchUpInside" id="3cZ-iX-5oo"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="mOj-CP-00Y">
+                                <rect key="frame" x="177" y="478.5" width="20" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="ULp-Sh-bZH"/>
+                                    <constraint firstAttribute="width" constant="20" id="r7W-g2-PNI"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.74509803921568629" green="0.70980392156862748" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hVJ-BF-P29" firstAttribute="top" secondItem="6vM-8f-D1U" secondAttribute="bottom" constant="43" id="1xR-Dw-tj5"/>
                             <constraint firstItem="FEd-4r-cva" firstAttribute="width" secondItem="ZMu-h3-sGd" secondAttribute="width" id="7QI-wc-zKu"/>
+                            <constraint firstItem="mOj-CP-00Y" firstAttribute="centerX" secondItem="ZMu-h3-sGd" secondAttribute="centerX" id="BlZ-1w-QgP"/>
                             <constraint firstItem="Amf-XW-io2" firstAttribute="centerX" secondItem="ZMu-h3-sGd" secondAttribute="centerX" id="P8Q-ez-bLq"/>
                             <constraint firstItem="5ev-Tn-hg8" firstAttribute="trailing" secondItem="ZMu-h3-sGd" secondAttribute="trailingMargin" constant="8" id="PZM-2v-qxQ"/>
                             <constraint firstItem="FEd-4r-cva" firstAttribute="top" secondItem="6vM-8f-D1U" secondAttribute="bottom" constant="188.5" id="PcP-mM-Uqk"/>
+                            <constraint firstItem="Amf-XW-io2" firstAttribute="top" secondItem="mOj-CP-00Y" secondAttribute="bottom" constant="20" id="R2C-f7-p6S"/>
                             <constraint firstItem="FEd-4r-cva" firstAttribute="centerY" secondItem="ZMu-h3-sGd" secondAttribute="centerY" id="Wh4-RT-cyL"/>
                             <constraint firstItem="5ev-Tn-hg8" firstAttribute="top" secondItem="6vM-8f-D1U" secondAttribute="bottom" constant="8" id="dPl-ln-qI9"/>
                             <constraint firstItem="hVJ-BF-P29" firstAttribute="centerX" secondItem="ZMu-h3-sGd" secondAttribute="centerX" id="dkc-WB-zH3"/>
+                            <constraint firstItem="mOj-CP-00Y" firstAttribute="top" secondItem="FEd-4r-cva" secondAttribute="bottom" constant="20" id="eNN-0h-41a"/>
                             <constraint firstItem="wRA-TN-FjI" firstAttribute="top" secondItem="Amf-XW-io2" secondAttribute="bottom" constant="100" id="ezU-ZQ-qmR"/>
                             <constraint firstItem="FEd-4r-cva" firstAttribute="top" secondItem="hVJ-BF-P29" secondAttribute="bottom" constant="43" id="t4p-di-pis"/>
                             <constraint firstItem="FEd-4r-cva" firstAttribute="centerX" secondItem="ZMu-h3-sGd" secondAttribute="centerX" id="yhR-Zb-FtL"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="mOj-CP-00Y" id="6pU-VB-h0g"/>
                         <outlet property="locationLabel" destination="mzq-nI-ZzE" id="fz8-da-FyR"/>
                     </connections>
                 </viewController>
