@@ -12,7 +12,7 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     var annotation: MKPointAnnotation? = nil // temp storage for posted point
-   
+    
     @IBAction func logout(_ sender: Any) {
         NetworkRequests.deleteSession()
         DispatchQueue.main.async {
@@ -24,10 +24,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewWillAppear(animated)
         NetworkRequests.getLocations {
             for locations in Annotations.MapPoints {
-                //print(locations)
-                /*guard locations["longitude"] as? Double != nil else{
-                    continue
-                }*/
                 let annot = MKPointAnnotation()
                 
                 annot.title = "\(locations["firstName"] as? String ?? "") \(locations["lastName"] as? String ?? "")"
@@ -38,11 +34,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     self.mapView.addAnnotation(annot)
                 }
                 Annotations.MapAnnotations.append(annot)
-                //Annotations.shouldReloadData = false
             }
-
-    }
-    
+            
+        }
+        
     }
     
     
@@ -60,19 +55,5 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         UIApplication.shared.open(link, options: [:], completionHandler: nil)
         
     }
-    
-    //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    //        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annot")
-    //        if annotationView == nil {
-    //            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "annot")
-    //            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-    //        }
-    //        annotationView?.isEnabled = true
-    //        annotationView?.canShowCallout = true
-    //        return annotationView
-    //    }
-    
-    
-    
 }
 

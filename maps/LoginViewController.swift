@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +35,25 @@ class LoginViewController: UIViewController {
         UIApplication.shared.open(URL(string: Constants.Udacity.udacitySignUpURLString)!, options: [:], completionHandler: nil)
     }
     
+    private func startAnimating() {
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+        }
+    }
+    
+    private func stopAnimating() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
     @IBAction func loginPressed(_ sender: Any) {
         guard !(emailField.text?.isEmpty)! && !(passwordField.text?.isEmpty)! else {
             self.displayError(title: "Empty Field/s", message: "Email and/ or password empty")
             return
         }
+        
+        self.startAnimating()
         
         var headers: [String: String] = [:]
         headers["Accept"] = "application/json" // Accept is unique. application/json isn't.
@@ -47,6 +62,7 @@ class LoginViewController: UIViewController {
         NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: Constants.Udacity.sessionURL, addValues: headers, httpBody: httpBody,isUdacityRequest: true, completionHandler: {(data, error) in
                 guard let data = data, error == nil else {
                     self.displayError(message: "No network.")
+                    self.stopAnimating()
                     return
                 }
             
@@ -63,6 +79,8 @@ class LoginViewController: UIViewController {
                 let id = session["id"] as! String
                 print(id)
                 print(registered)
+            
+                self.stopAnimating()
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "loginSegue", sender: self)
                 }

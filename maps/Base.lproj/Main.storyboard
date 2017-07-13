@@ -74,6 +74,13 @@
                                     <action selector="signUp:" destination="UHc-4M-UMA" eventType="touchUpInside" id="Kye-mJ-NMH"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="MQX-lj-Ov4">
+                                <rect key="frame" x="167.5" y="456" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="dFX-yY-Y7h"/>
+                                    <constraint firstAttribute="height" constant="40" id="tIE-4l-TfR"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.81745717005076146" green="0.47422835111718104" blue="0.010517662129013958" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -83,10 +90,12 @@
                             <constraint firstItem="sgc-pH-odz" firstAttribute="centerX" secondItem="y8I-pN-tcU" secondAttribute="centerX" id="H4b-GE-eMl"/>
                             <constraint firstItem="mY0-is-H8c" firstAttribute="height" secondItem="QFA-kl-Ecd" secondAttribute="height" id="KMP-VU-c5q"/>
                             <constraint firstItem="16b-uV-BQd" firstAttribute="centerX" secondItem="y8I-pN-tcU" secondAttribute="centerX" id="OT2-MT-QE2"/>
+                            <constraint firstItem="MQX-lj-Ov4" firstAttribute="centerX" secondItem="y8I-pN-tcU" secondAttribute="centerX" id="RS5-zz-b8u"/>
                             <constraint firstItem="OSs-vL-yK1" firstAttribute="top" secondItem="16b-uV-BQd" secondAttribute="bottom" constant="8" id="SQ4-4f-foP"/>
                             <constraint firstItem="M1G-3U-7SL" firstAttribute="top" secondItem="sgc-pH-odz" secondAttribute="bottom" constant="34" id="VAg-gq-e3R"/>
                             <constraint firstItem="QFA-kl-Ecd" firstAttribute="top" secondItem="sgc-pH-odz" secondAttribute="bottom" constant="75" id="Xd1-B4-KYL"/>
                             <constraint firstItem="OSs-vL-yK1" firstAttribute="centerX" secondItem="y8I-pN-tcU" secondAttribute="centerX" id="bbg-Yh-YAV"/>
+                            <constraint firstItem="MQX-lj-Ov4" firstAttribute="top" secondItem="OSs-vL-yK1" secondAttribute="bottom" constant="8" id="d5X-nn-j6v"/>
                             <constraint firstItem="mY0-is-H8c" firstAttribute="width" secondItem="QFA-kl-Ecd" secondAttribute="width" id="dsg-Ky-YqK"/>
                             <constraint firstItem="QFA-kl-Ecd" firstAttribute="top" secondItem="M1G-3U-7SL" secondAttribute="bottom" constant="20" id="fjT-rV-djv"/>
                             <constraint firstItem="16b-uV-BQd" firstAttribute="width" secondItem="mY0-is-H8c" secondAttribute="width" id="mX6-K6-K74"/>
@@ -96,6 +105,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="MQX-lj-Ov4" id="cSD-pj-HWo"/>
                         <outlet property="emailField" destination="QFA-kl-Ecd" id="zhL-Jb-9jy"/>
                         <outlet property="loginButton" destination="16b-uV-BQd" id="lcf-uc-9zN"/>
                         <outlet property="passwordField" destination="mY0-is-H8c" id="nl0-sL-CXY"/>
@@ -280,10 +290,11 @@
                                 <rect key="frame" x="0.0" y="208.5" width="375" height="250"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your location here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mzq-nI-ZzE">
-                                        <rect key="frame" x="62.5" y="51" width="250" height="17"/>
+                                        <rect key="frame" x="62.5" y="51" width="250" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="bSq-e0-8Rh"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="mC2-tU-hnS"/>
+                                            <constraint firstAttribute="height" constant="40" id="qY2-5I-tlj"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -370,11 +381,11 @@ V2hlcmUgYXJlIHlvdeKAqBBzdHVkeWluZ+KAqHRvZGF5Pw
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVT-AD-xLF">
-                                <rect key="frame" x="132" y="519" width="111" height="48"/>
+                                <rect key="frame" x="163" y="519" width="49" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="jJr-E9-Q4s"/>
                                 </constraints>
-                                <state key="normal" title="Find on the Map"/>
+                                <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submit:" destination="Bwa-UL-Mtf" eventType="touchUpInside" id="gss-LJ-cpl"/>
                                 </connections>
