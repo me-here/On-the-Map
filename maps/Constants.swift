@@ -31,11 +31,7 @@ struct Constants {
             static let headerName = "X-XSRF-TOKEN"
             static let cookieName = "XSRF-TOKEN"
         }
-        static var userID = ""
         static let udacitySignUpURLString = "https://auth.udacity.com/sign-up?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated"
-        static var firstName = ""
-        static var lastName = ""
-        
     }
     
     enum requestType: String {
@@ -43,22 +39,6 @@ struct Constants {
         case POST = "POST"
         case GET = "GET"
         case DELETE = "DELETE"
-        
-        static func isValidRequestType(requestType: String) -> Bool {
-            switch requestType {
-            case Constants.requestType.GET.rawValue:
-                return true
-            case Constants.requestType.PUT.rawValue:
-                return true
-            case Constants.requestType.POST.rawValue:
-                return true
-            case Constants.requestType.DELETE.rawValue:
-                return true
-            default:
-                return false
-            }
-        }
-
     }
     
 }

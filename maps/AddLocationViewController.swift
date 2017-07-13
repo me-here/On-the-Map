@@ -23,7 +23,6 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         locationLabel.delegate = self
         locationLabel.returnKeyType = .done
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func findOnMap(_ sender: Any) {
@@ -63,7 +62,8 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
             showPinController.region = MKCoordinateRegionMakeWithDistance(location, regionn.radius, regionn.radius)
             
             showPinController.pointAnnotation.coordinate = location
-            showPinController.pointAnnotation.title = "\(Constants.Udacity.firstName) \(Constants.Udacity.lastName)"  // Get Name from info
+            showPinController.pointAnnotation.title = "\(model.firstName) \(model.lastName)"  // Get Name from info
+            print(showPinController.pointAnnotation.title ?? "no title")
             
             DispatchQueue.main.async{
                 self.activityIndicator.stopAnimating()

@@ -41,7 +41,7 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         
         self.pointAnnotation.subtitle = linkText
         
-        let httBody = "{\"uniqueKey\": \"\(self.uniqueHash(numberOfCharacters: 6))\", \"firstName\": \"\(Constants.Udacity.firstName)\", \"lastName\": \"\(Constants.Udacity.lastName)\",\"mapString\": \"\(pointAnnotation.subtitle ?? "Unknown")\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
+        let httBody = "{\"uniqueKey\": \"\(self.uniqueHash(numberOfCharacters: 6))\", \"firstName\": \"\(model.firstName)\", \"lastName\": \"\(model.lastName)\",\"mapString\": \"\(pointAnnotation.subtitle ?? "Unknown")\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
         
         NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: Constants.Udacity.studentLocationsURL, addValues: values, httpBody: httBody, completionHandler: {
             (data, error) in
@@ -51,7 +51,7 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
                 }
             
                 print(data)
-            
+                Constants.Parse.shouldReloadData = true
                 DispatchQueue.main.async {
                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 }
@@ -63,9 +63,9 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         super.viewDidLoad()
         
         DispatchQueue.main.async {
+            self.mapView.setCenter(.init(latitude: 0, longitude: 0), animated: false)   // ensure that some zoom will occur
             self.mapView.addAnnotation(self.pointAnnotation)
             self.mapView.setRegion(self.region, animated: true)
-            //self.mapView.setCenter(self.pointAnnotation.coordinate, animated: true)
             setupButton(self.submitButton, color: UIColor(red: 139/255,green: 195/255,blue: 74/255,alpha: 1))
         }
         

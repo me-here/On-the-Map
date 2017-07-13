@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                Constants.Udacity.userID = key
+                model.userID = key
 
                 let session = data["session"] as! [String: AnyObject]
                 let id = session["id"] as! String
@@ -89,7 +89,7 @@ class LoginViewController: UIViewController {
     }
     
     private func getName() {
-        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.usersURL + Constants.Udacity.userID, addValues: [:], httpBody: nil, isUdacityRequest: true, completionHandler: {
+        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.usersURL + model.userID, addValues: [:], httpBody: nil, isUdacityRequest: true, completionHandler: {
             (data, error) in
             guard error == nil, let data = data else {
                 self.displayError(message: "Network error")
@@ -99,8 +99,8 @@ class LoginViewController: UIViewController {
             
             let firstName = user["first_name"] as! String
             let lastName = user["last_name"] as! String
-            Constants.Udacity.firstName = firstName
-            Constants.Udacity.lastName = lastName
+            model.firstName = firstName
+            model.lastName = lastName
             print(firstName, lastName)
         })
     }

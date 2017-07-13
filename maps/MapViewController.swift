@@ -39,18 +39,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             print(data)
             
             let results = data["results"] as! [[String: AnyObject]]
-            Annotations.MapPoints = results
-            for locations in Annotations.MapPoints {
+            _ = model(allPoints: results)
+            //Annotations.MapPoints = results
+            
+            for pinInfo in model.allStudentsInfo {
                 let annot = MKPointAnnotation()
                 
-                annot.title = "\(locations["firstName"] as? String ?? "") \(locations["lastName"] as? String ?? "")"
-                annot.subtitle = locations["mediaURL"] as? String ?? ""
-                annot.coordinate = CLLocationCoordinate2D(latitude: locations["latitude"] as? Double ?? 0, longitude: locations["longitude"] as? Double ?? 0)
+                annot.title = pinInfo.name
+                annot.subtitle = pinInfo.link
+                annot.coordinate = pinInfo.location
                 
                 DispatchQueue.main.async {
                     self.mapView.addAnnotation(annot)
                 }
-                Annotations.MapAnnotations.append(annot)
+                //Annotations.MapAnnotations.append(annot)
             }
           Constants.Parse.shouldReloadData = false
         })
