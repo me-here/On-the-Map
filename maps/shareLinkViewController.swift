@@ -12,6 +12,7 @@ import MapKit
 class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
     
     var pointAnnotation = MKPointAnnotation()
+    var region = MKCoordinateRegion()
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var linkField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
@@ -63,7 +64,8 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
         
         DispatchQueue.main.async {
             self.mapView.addAnnotation(self.pointAnnotation)
-            self.mapView.setCenter(self.pointAnnotation.coordinate, animated: true)
+            self.mapView.setRegion(self.region, animated: true)
+            //self.mapView.setCenter(self.pointAnnotation.coordinate, animated: true)
             setupButton(self.submitButton, color: UIColor(red: 139/255,green: 195/255,blue: 74/255,alpha: 1))
         }
         

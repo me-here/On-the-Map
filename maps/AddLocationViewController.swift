@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
+import MapKit
 
 class AddLocationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var locationLabel: UITextField!
@@ -45,6 +45,8 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
                 print("location err")
                 return
             }
+            let regionn = placemark?[0].region as! CLCircularRegion
+            showPinController.region = MKCoordinateRegionMakeWithDistance(location, regionn.radius, regionn.radius)
             
             showPinController.pointAnnotation.coordinate = location
             showPinController.pointAnnotation.title = "Mihir Thanekar"  // Get Name from info
