@@ -61,8 +61,9 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             let regionn = placemark?[0].region as! CLCircularRegion // Since CLRegion radius is deprecated, a cast to CLCircularRegion lets us access the properties
+            model.mapString = locationText
+
             showPinController.region = MKCoordinateRegionMakeWithDistance(location, regionn.radius, regionn.radius)
-            
             showPinController.pointAnnotation.coordinate = location
             showPinController.pointAnnotation.title = "\(model.firstName) \(model.lastName)"  // Get Name from info
             

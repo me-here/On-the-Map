@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "maps/AddLocationViewController.swift"
-            timestampString = "521674394.538526"
+            timestampString = "521676865.72807"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "findOnMap(_:)"
             landmarkType = "7">
          </BreakpointContent>

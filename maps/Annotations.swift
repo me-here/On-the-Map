@@ -38,4 +38,5 @@ class model {
     static var lastName = ""
     static var shouldReloadData = true
     static var tableViewShouldReloadData = true
+    static var mapString = ""
 }
