@@ -8,8 +8,7 @@
 
 import UIKit
 
-class MapTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class MapTableViewController: UIViewController {
     @IBOutlet weak var mapTableView: UITableView!
     @IBAction func logout(_ sender: Any) {
         NetworkRequests.deleteSession()
@@ -17,16 +16,9 @@ class MapTableViewController: UIViewController, UITableViewDelegate, UITableView
             self.dismiss(animated: true, completion: nil)
         }
     }
+}
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard !model.allStudentsInfo[indexPath.row].link.isEmpty else {
-            print("err")
-            return
-        }
-        let link = URL(string: model.allStudentsInfo[indexPath.row].link)
-        UIApplication.shared.open(link!, options: [:], completionHandler: nil)
-    }
-    
+extension MapTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.allStudentsInfo.count
     }
@@ -39,6 +31,15 @@ class MapTableViewController: UIViewController, UITableViewDelegate, UITableView
         cell?.accessoryType = .disclosureIndicator
         return cell ?? UITableViewCell()
     }
+}
 
-
+extension MapTableViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard !model.allStudentsInfo[indexPath.row].link.isEmpty else { // Don't open empty links
+            print("err")
+            return
+        }
+        let link = URL(string: model.allStudentsInfo[indexPath.row].link)
+        UIApplication.shared.open(link!, options: [:], completionHandler: nil)
+    }
 }

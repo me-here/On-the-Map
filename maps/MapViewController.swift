@@ -9,9 +9,8 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    
     @IBAction func logout(_ sender: Any) {
         NetworkRequests.deleteSession()
         DispatchQueue.main.async {
@@ -21,11 +20,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard Constants.Parse.shouldReloadData else {
+        guard Constants.Parse.shouldReloadData else {   // Only reload map pins when we need to
             return
         }
         
-        let values: [String: String] = [
+        let values: [String: String] = [    // headers
             Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
             Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey
         ]
@@ -59,25 +58,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    
-    
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        view.rightCalloutAccessoryView = UIButton(type: .infoLight)
-    }
-    
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        guard let linkString = view.annotation?.subtitle as? String, !linkString.isEmpty else {
-            print("Empty link in pin")
-            return
-        }
-        let link = URL(string: linkString)!
-        UIApplication.shared.open(link, options: [:], completionHandler: nil)
-        
-    }
-    
     private func displayError(title:String? = "Download failure",message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(.init(title: "Retry", style: .default, handler: {_ in
+            // We need to reload to retry
             Constants.Parse.shouldReloadData = true
             self.viewWillAppear(true)
         }))
@@ -93,3 +77,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
 }
 
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        view.rightCalloutAccessoryView = UIButton(type: .infoLight)
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let linkString = view.annotation?.subtitle as? String, !linkString.isEmpty else {
+            print("Empty link in pin")
+            return
+        }
+        let link = URL(string: linkString)!
+        UIApplication.shared.open(link, options: [:], completionHandler: nil)
+        
+    }
+}

@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
+class shareLinkViewController: UIViewController {
     
     var pointAnnotation = MKPointAnnotation()
     var region = MKCoordinateRegion()
@@ -61,7 +61,7 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        linkField.delegate = self
         DispatchQueue.main.async {
             self.mapView.setCenter(.init(latitude: 0, longitude: 0), animated: false)   // ensure that some zoom will occur
             self.mapView.addAnnotation(self.pointAnnotation)
@@ -69,11 +69,6 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
             setupButton(self.submitButton, color: UIColor(red: 139/255,green: 195/255,blue: 74/255,alpha: 1))
         }
         
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
     
      private func uniqueHash(numberOfCharacters: Int) -> String {
@@ -100,7 +95,13 @@ class shareLinkViewController: UIViewController, MKMapViewDelegate, UITextFieldD
             self.present(alert, animated: true, completion: nil)
         }
     }
-
-    
-    
 }
+
+extension shareLinkViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+

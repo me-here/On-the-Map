@@ -26,14 +26,16 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func findOnMap(_ sender: Any) {
-        guard let locationText = locationLabel.text else {
+        guard let locationText = locationLabel.text, !locationText.isEmpty else {
             displayError(message: "Empty field/s")
             return
         }
+        
         let geocoder = CLGeocoder()
-        DispatchQueue.main.async {
+        DispatchQueue.main.async {  // Spin the wheel to let user know of geocoding
             self.activityIndicator.startAnimating()
         }
+        
         geocoder.geocodeAddressString(locationText, completionHandler: {(placemark, error) in
             guard error == nil else {
                 self.displayError(message: "Geocode failure.")
@@ -51,19 +53,18 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            guard let location = placemark?[0].location?.coordinate else {
+            guard let location = placemark?[0].location?.coordinate else {  // There has to be 1 because that's what we requested
                 print("location err")
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
                 }
                 return
             }
-            let regionn = placemark?[0].region as! CLCircularRegion
+            let regionn = placemark?[0].region as! CLCircularRegion // Since CLRegion radius is deprecated, a cast to CLCircularRegion lets us access the properties
             showPinController.region = MKCoordinateRegionMakeWithDistance(location, regionn.radius, regionn.radius)
             
             showPinController.pointAnnotation.coordinate = location
             showPinController.pointAnnotation.title = "\(model.firstName) \(model.lastName)"  // Get Name from info
-            //print(showPinController.pointAnnotation.title ?? "no title")
             
             DispatchQueue.main.async{
                 self.activityIndicator.stopAnimating()

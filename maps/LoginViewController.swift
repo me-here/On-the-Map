@@ -76,7 +76,7 @@ class LoginViewController: UIViewController {
                 model.userID = key
 
                 let session = data["session"] as! [String: AnyObject]
-                let id = session["id"] as! String
+                let id = session["id"] as! String   // session id
                 print(id)
                 print(registered)
                 self.getName()
@@ -97,8 +97,11 @@ class LoginViewController: UIViewController {
             }
             let user = data["user"] as! [String: AnyObject]
             
+            // Every Udacity user must have these properties
             let firstName = user["first_name"] as! String
             let lastName = user["last_name"] as! String
+            
+            // Give them to model
             model.firstName = firstName
             model.lastName = lastName
             print(firstName, lastName)

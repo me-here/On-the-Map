@@ -387,9 +387,6 @@ V2hlcmUgYXJlIHlvdeKAqBBzdHVkeWluZ+KAqHRvZGF5Pw
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="P3g-Zy-OYW">
                                 <rect key="frame" x="0.0" y="208.5" width="375" height="458.5"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Bwa-UL-Mtf" id="3tR-tV-xFI"/>
-                                </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVT-AD-xLF">
                                 <rect key="frame" x="156.5" y="537" width="62" height="30"/>
@@ -420,9 +417,6 @@ V2hlcmUgYXJlIHlvdeKAqBBzdHVkeWluZ+KAqHRvZGF5Pw
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Bwa-UL-Mtf" id="Xk4-fZ-snZ"/>
-                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.74492385790000004" green="0.71135683400000005" blue="0.63285690510000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
