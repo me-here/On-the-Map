@@ -33,7 +33,10 @@ class MapTableViewController: UIViewController {
                     }
                     //print(data)
                     
-                    let results = data["results"] as! [[String: AnyObject]]
+                    guard let results = data["results"] as? [[String: AnyObject]] else {
+                        self.displayError(title: "Pin loading error", message: "Error with GETting map pins")
+                        return
+                    }
                     _ = model(allPoints: results)
                     model.tableViewShouldReloadData = false
                 })
@@ -43,22 +46,6 @@ class MapTableViewController: UIViewController {
                 self.mapTableView.reloadData()
             }
             model.tableViewShouldReloadData = false
-        }
-    }
-    private func displayError(title:String? = "Download failure",message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(.init(title: "Retry", style: .default, handler: {_ in
-            // We need to reload to retry
-            model.shouldReloadData = true
-            self.viewWillAppear(true)
-        }))
-        alert.addAction(.init(title: "Give up", style: .destructive, handler: {_ in
-            DispatchQueue.main.async {
-                alert.dismiss(animated: true, completion: nil)
-            }
-        }))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -81,10 +68,32 @@ extension MapTableViewController: UITableViewDelegate {
 extension MapTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard !model.allStudentsInfo[indexPath.row].link.isEmpty else { // Don't open empty links
-            print("err")
+            self.secondaryError(message: "Empty URL")
+            tableView.deselectRow(at: indexPath, animated: true)
             return
         }
-        let link = URL(string: model.allStudentsInfo[indexPath.row].link)
-        UIApplication.shared.open(link!, options: [:], completionHandler: nil)
+        
+        let link = URL(string: model.allStudentsInfo[indexPath.row].link)!
+        guard UIApplication.shared.canOpenURL(link) else {
+            self.secondaryError(message: "Invalid URL format")
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+        UIApplication.shared.open(link, options: [:], completionHandler: {
+        _ in
+            tableView.deselectRow(at: indexPath, animated: true)
+        })
+    }
+    
+    private func secondaryError(title:String? = "URL error",message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(.init(title: "Ok.", style: .destructive, handler: {_ in
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

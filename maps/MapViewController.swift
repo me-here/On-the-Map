@@ -36,7 +36,10 @@ class MapViewController: UIViewController {
             }
             //print(data)
             
-            let results = data["results"] as! [[String: AnyObject]]
+            guard let results = data["results"] as? [[String: AnyObject]] else {
+                self.displayError(title: "Pin loading error", message: "Error with GETting map pins")
+                return
+            }
             _ = model(allPoints: results)
             
             for pinInfo in model.allStudentsInfo {
@@ -56,23 +59,6 @@ class MapViewController: UIViewController {
         })
         print("Reloaded map")
         
-    }
-    
-    private func displayError(title:String? = "Download failure",message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(.init(title: "Retry", style: .default, handler: {_ in
-            // We need to reload to retry
-            model.shouldReloadData = true
-            self.viewWillAppear(true)
-        }))
-        alert.addAction(.init(title: "Give up", style: .destructive, handler: {_ in
-            DispatchQueue.main.async {
-                alert.dismiss(animated: true, completion: nil)
-            }
-        }))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     
 }

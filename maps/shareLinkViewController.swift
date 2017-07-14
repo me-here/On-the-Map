@@ -34,7 +34,6 @@ class shareLinkViewController: UIViewController {
         let values = [Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
                       Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey,
                       Constants.Parse.parameters.contentType: Constants.Parse.values.contentType
-            
         ]
         
         print("Point -> (\(pointAnnotation.coordinate.latitude),\(pointAnnotation.coordinate.longitude))")
@@ -83,18 +82,6 @@ class shareLinkViewController: UIViewController {
             hash.append(char)
         }
         return hash
-    }
-    
-    private func displayError(title:String? = "Failure",message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(.init(title: "Ok", style: .cancel, handler: {_ in
-            DispatchQueue.main.async {
-                alert.dismiss(animated: true, completion: nil)
-            }
-        }))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
     }
 }
 

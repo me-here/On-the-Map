@@ -26,7 +26,10 @@ extension LoginViewController: UITextFieldDelegate {
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        guard let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            self.displayError(title: "Keyboard failure", message: "Couldn't get keyboard height")
+            return CGFloat()
+        }
         return keyboardSize.cgRectValue.height
     }
     
@@ -38,5 +41,24 @@ extension LoginViewController: UITextFieldDelegate {
     func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+    }
+}
+
+extension UIViewController {
+    public func displayError(title:String? = "Download failure",message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(.init(title: "Retry", style: .default, handler: {_ in
+            // We need to reload to retry
+            model.shouldReloadData = true
+            self.viewWillAppear(true)
+        }))
+        alert.addAction(.init(title: "Give up", style: .destructive, handler: {_ in
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

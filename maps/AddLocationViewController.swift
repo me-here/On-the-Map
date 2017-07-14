@@ -60,7 +60,12 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
                 }
                 return
             }
-            let regionn = placemark?[0].region as! CLCircularRegion // Since CLRegion radius is deprecated, a cast to CLCircularRegion lets us access the properties
+            // Since CLRegion radius is deprecated, a cast to CLCircularRegion lets us access the properties
+            guard let regionn = placemark?[0].region as? CLCircularRegion else {
+                self.displayError(title: "Geocoding failure", message: "No region found")
+                return
+            }
+            
             model.mapString = locationText
 
             showPinController.region = MKCoordinateRegionMakeWithDistance(location, regionn.radius, regionn.radius)
@@ -79,18 +84,4 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-    private func displayError(title:String? = "Geocoding failure",message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(.init(title: "Ok", style: .cancel, handler: {_ in
-            DispatchQueue.main.async {
-                alert.dismiss(animated: true, completion: nil)
-            }
-        }))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-
-    
 }

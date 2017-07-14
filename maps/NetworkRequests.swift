@@ -33,7 +33,12 @@ class NetworkRequests {
             //let deserializedJSONData: [String: AnyObject]
             do{
                 let serializedJSONData = isUdacityRequest == true ? skipSecurityCharacters(udacityData: bytesData) : bytesData
-                let deserializedJSONData = try JSONSerialization.jsonObject(with: serializedJSONData, options: .allowFragments) as! [String: AnyObject]
+                guard let deserializedJSONData = try JSONSerialization.jsonObject(with: serializedJSONData, options: .allowFragments) as? [String: AnyObject] else {
+                    print("Deserialization failure")
+                    completionHandler(nil, error)
+                    return
+                }
+                
                 completionHandler(deserializedJSONData, nil)
             }catch{
                 completionHandler(nil, error)
