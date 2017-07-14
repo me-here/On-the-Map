@@ -20,7 +20,7 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard model.shouldReloadData else {   // Only reload map pins when we need to
+        guard StudentInformation.shouldReloadData else {   // Only reload map pins when we need to
             return
         }
         
@@ -55,7 +55,7 @@ class MapViewController: UIViewController {
                 }
                 
             }
-          model.shouldReloadData = false
+          StudentInformation.shouldReloadData = false
         })
         print("Reloaded map")
         

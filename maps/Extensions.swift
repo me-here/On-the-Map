@@ -49,7 +49,7 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(.init(title: "Retry", style: .default, handler: {_ in
             // We need to reload to retry
-            model.shouldReloadData = true
+            StudentInformation.shouldReloadData = true
             self.viewWillAppear(true)
         }))
         alert.addAction(.init(title: "Give up", style: .destructive, handler: {_ in

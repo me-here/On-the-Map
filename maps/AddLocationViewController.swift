@@ -66,11 +66,11 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            model.mapString = locationText
+            StudentInformation.mapString = locationText
 
             showPinController.region = MKCoordinateRegionMakeWithDistance(location, regionn.radius, regionn.radius)
             showPinController.pointAnnotation.coordinate = location
-            showPinController.pointAnnotation.title = "\(model.firstName) \(model.lastName)"  // Get Name from info
+            showPinController.pointAnnotation.title = "\(StudentInformation.firstName) \(StudentInformation.lastName)"  // Get Name from info
             
             DispatchQueue.main.async{
                 self.activityIndicator.stopAnimating()

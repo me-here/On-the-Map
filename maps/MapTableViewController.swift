@@ -19,8 +19,8 @@ class MapTableViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if model.tableViewShouldReloadData {
-            if model.shouldReloadData { // table was opened first and needs to get stuff
+        if StudentInformation.tableViewShouldReloadData {
+            if StudentInformation.shouldReloadData { // table was opened first and needs to get stuff
                 let values: [String: String] = [    // headers
                     Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
                     Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey
@@ -38,14 +38,14 @@ class MapTableViewController: UIViewController {
                         return
                     }
                     _ = model(allPoints: results)
-                    model.tableViewShouldReloadData = false
+                    StudentInformation.tableViewShouldReloadData = false
                 })
             
             }
             DispatchQueue.main.async {
                 self.mapTableView.reloadData()
             }
-            model.tableViewShouldReloadData = false
+            StudentInformation.tableViewShouldReloadData = false
         }
     }
 }

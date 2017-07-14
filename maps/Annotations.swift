@@ -14,6 +14,13 @@ struct StudentInformation {
     let link: String
     let name: String
     
+    static var userID = ""
+    static var firstName = ""
+    static var lastName = ""
+    static var shouldReloadData = true
+    static var tableViewShouldReloadData = true
+    static var mapString = ""
+
     init(studentInfo: [String: AnyObject]) {
         self.location = CLLocationCoordinate2D(latitude: studentInfo["latitude"] as? Double ?? 0, longitude: studentInfo["longitude"] as? Double ?? 0)
         self.link = studentInfo["mediaURL"] as? String ?? ""
@@ -32,11 +39,4 @@ class model {
         }
         model.allStudentsInfo = tempStudentInfo
     }
-    
-    static var userID = ""
-    static var firstName = ""
-    static var lastName = ""
-    static var shouldReloadData = true
-    static var tableViewShouldReloadData = true
-    static var mapString = ""
 }
