@@ -280,7 +280,7 @@
                                 <rect key="frame" x="0.0" y="208.5" width="375" height="250"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your location here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mzq-nI-ZzE">
-                                        <rect key="frame" x="62.5" y="51" width="250" height="40"/>
+                                        <rect key="frame" x="62.5" y="105" width="250" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="bSq-e0-8Rh"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="mC2-tU-hnS"/>
@@ -293,7 +293,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.72997371829891977" green="0.84949158746000397" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="mzq-nI-ZzE" firstAttribute="top" secondItem="FEd-4r-cva" secondAttribute="top" constant="51" id="YUl-KV-orj"/>
+                                    <constraint firstItem="mzq-nI-ZzE" firstAttribute="centerY" secondItem="FEd-4r-cva" secondAttribute="centerY" id="XxS-Gs-bT9"/>
                                     <constraint firstItem="mzq-nI-ZzE" firstAttribute="centerX" secondItem="FEd-4r-cva" secondAttribute="centerX" id="btI-px-Und"/>
                                     <constraint firstAttribute="height" constant="250" id="fVg-0x-rxO"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="h7S-cn-77r"/>

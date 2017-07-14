@@ -25,7 +25,7 @@ class shareLinkViewController: UIViewController {
     
     @IBAction func submit(_ sender: Any) {
         guard let linkText = linkField.text, !linkText.isEmpty else {
-            self.displayError(message: "empty text field")
+            self.secondaryError(message: "empty text field")
             return
         }
         print(linkText)
@@ -45,7 +45,7 @@ class shareLinkViewController: UIViewController {
         NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: Constants.Udacity.studentLocationsURL, addValues: values, httpBody: httBody, completionHandler: {
             (data, error) in
                 guard error == nil, let data = data else {
-                    self.displayError(message: "Error with POST")
+                    self.secondaryError(message: "Error with POST")
                     return
                 }
             

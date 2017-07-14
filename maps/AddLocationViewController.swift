@@ -38,7 +38,7 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
         
         geocoder.geocodeAddressString(locationText, completionHandler: {(placemark, error) in
             guard error == nil else {
-                self.displayError(message: "Geocode failure.")
+                self.secondaryError(message: "Geocode failure.")
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
                 }
@@ -62,7 +62,7 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
             }
             // Since CLRegion radius is deprecated, a cast to CLCircularRegion lets us access the properties
             guard let regionn = placemark?[0].region as? CLCircularRegion else {
-                self.displayError(title: "Geocoding failure", message: "No region found")
+                self.secondaryError(title: "Geocoding failure", message: "No region found")
                 return
             }
             
