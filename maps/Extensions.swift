@@ -61,4 +61,17 @@ extension UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    public func secondaryError(title:String? = "URL error",message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(.init(title: "Ok.", style: .destructive, handler: {_ in
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
 }

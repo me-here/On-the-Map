@@ -26,7 +26,7 @@ class MapTableViewController: UIViewController {
                     Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey
                 ]
 
-                NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.studentLocationsURL, addValues: values, httpBody: nil, completionHandler: {(data, error) in
+                NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.studentLocationsGETURL, addValues: values, httpBody: nil, completionHandler: {(data, error) in
                     guard let data = data, error == nil else {
                         self.displayError(message: "Pin loading error")
                         return
@@ -83,17 +83,5 @@ extension MapTableViewController: UITableViewDataSource {
         _ in
             tableView.deselectRow(at: indexPath, animated: true)
         })
-    }
-    
-    private func secondaryError(title:String? = "URL error",message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(.init(title: "Ok.", style: .destructive, handler: {_ in
-            DispatchQueue.main.async {
-                alert.dismiss(animated: true, completion: nil)
-            }
-        }))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
     }
 }

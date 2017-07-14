@@ -275,5 +275,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "maps/MapViewController.swift"
+            timestampString = "521752054.397685"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "mapView(_:annotationView:calloutAccessoryControlTapped:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "maps.MapViewController.mapView (__ObjC.MKMapView, annotationView : __ObjC.MKAnnotationView, calloutAccessoryControlTapped : __ObjC.UIControl) -&gt; ()"
+                  moduleName = "maps"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/flamesgames/Desktop/ios_nd/maps/maps/MapViewController.swift"
+                  timestampString = "521752054.979803"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "maps.MapViewController.mapView (__ObjC.MKMapView, annotationView : __ObjC.MKAnnotationView, calloutAccessoryControlTapped : __ObjC.UIControl) -&gt; ()"
+                  moduleName = "maps"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/flamesgames/Desktop/ios_nd/maps/maps/MapViewController.swift"
+                  timestampString = "521752054.982703"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "736">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -29,7 +29,7 @@ class MapViewController: UIViewController {
             Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey
         ]
         
-        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.studentLocationsURL, addValues: values, httpBody: nil, completionHandler: {(data, error) in
+        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.studentLocationsGETURL, addValues: values, httpBody: nil, completionHandler: {(data, error) in
             guard let data = data, error == nil else {
                 self.displayError(message: "Pin loading error")
                 return
@@ -70,11 +70,14 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let linkString = view.annotation?.subtitle as? String, !linkString.isEmpty else {
-            print("Empty link in pin")
+            self.secondaryError(message: "Empty URL")
             return
         }
         let link = URL(string: linkString)!
+        guard UIApplication.shared.canOpenURL(link) else {
+            self.secondaryError(message: "Invalid URL format")
+            return
+        }
         UIApplication.shared.open(link, options: [:], completionHandler: nil)
-        
     }
 }

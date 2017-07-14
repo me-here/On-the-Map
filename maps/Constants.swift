@@ -26,6 +26,7 @@ struct Constants {
         static let sessionURL = "https://www.udacity.com/api/session"
         static let usersURL = "https://www.udacity.com/api/users/"
         static let studentLocationsURL = "https://parse.udacity.com/parse/classes/StudentLocation"
+        static let studentLocationsGETURL = "\(studentLocationsURL)?limit=100&order=-updatedAt"
         struct sessionCookie {
             static let headerName = "X-XSRF-TOKEN"
             static let cookieName = "XSRF-TOKEN"

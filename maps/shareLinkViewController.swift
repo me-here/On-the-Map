@@ -40,7 +40,7 @@ class shareLinkViewController: UIViewController {
         
         self.pointAnnotation.subtitle = linkText
         
-        let httBody = "{\"uniqueKey\": \"\(self.uniqueHash(numberOfCharacters: 6))\", \"firstName\": \"\(model.firstName)\", \"lastName\": \"\(model.lastName)\",\"mapString\": \"\(model.mapString))\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
+        let httBody = "{\"uniqueKey\": \"\(model.userID)\", \"firstName\": \"\(model.firstName)\", \"lastName\": \"\(model.lastName)\",\"mapString\": \"\(model.mapString))\", \"mediaURL\": \"\(linkText)\",\"latitude\": \(pointAnnotation.coordinate.latitude), \"longitude\": \(pointAnnotation.coordinate.longitude)}"
         
         NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: Constants.Udacity.studentLocationsURL, addValues: values, httpBody: httBody, completionHandler: {
             (data, error) in
@@ -69,19 +69,6 @@ class shareLinkViewController: UIViewController {
             setupButton(self.submitButton, color: UIColor(red: 139/255,green: 195/255,blue: 74/255,alpha: 1))
         }
         
-    }
-    
-     private func uniqueHash(numberOfCharacters: Int) -> String {
-        let alphaNumerics = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-        var hash = ""
-        
-        for _ in 1...numberOfCharacters {
-            let randomCharacterIndex = Int(arc4random_uniform(UInt32(alphaNumerics.characters.count)))
-            let randStringCharIndex = alphaNumerics.index(alphaNumerics.startIndex, offsetBy: randomCharacterIndex)
-            let char = alphaNumerics.substring(to: randStringCharIndex)
-            hash.append(char)
-        }
-        return hash
     }
 }
 
