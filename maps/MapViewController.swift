@@ -24,24 +24,9 @@ class MapViewController: UIViewController {
             return
         }
         
-        let values: [String: String] = [    // headers
-            Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
-            Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey
-        ]
-        
-        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.studentLocationsGETURL, addValues: values, httpBody: nil, completionHandler: {(data, error) in
-            guard let data = data, error == nil else {
-                self.displayError(message: "Pin loading error")
-                return
-            }
-            //print(data)
-            
-            guard let results = data["results"] as? [[String: AnyObject]] else {
-                self.displayError(title: "Pin loading error", message: "Error with GETting map pins")
-                return
-            }
-            _ = model(allPoints: results)
-            
+        NetworkRequests.reloadData(err: {errorString in
+            self.displayError(title: "Pin loading error", message: errorString)
+        }, completion: {
             for pinInfo in model.allStudentsInfo {
                 //print(pinInfo.name, pinInfo.link)
                 let annot = MKPointAnnotation()
@@ -55,10 +40,9 @@ class MapViewController: UIViewController {
                 }
                 
             }
-          StudentInformation.shouldReloadData = false
-        })
-        print("Reloaded map")
+            StudentInformation.shouldReloadData = false
         
+        })
     }
     
 }

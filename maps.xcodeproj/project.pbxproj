@@ -21,6 +21,7 @@
 		4310D89D1F144EE10008D89C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4310D89C1F144EE10008D89C /* Extensions.swift */; };
 		4310D89F1F14750E0008D89C /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4310D89E1F14750E0008D89C /* AddLocationViewController.swift */; };
 		4310D8A31F14958E0008D89C /* shareLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4310D8A21F14958E0008D89C /* shareLinkViewController.swift */; };
+		43392AFD1F19D4CE0013B3C5 /* NetworkConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43392AFC1F19D4CE0013B3C5 /* NetworkConvenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		4310D89C1F144EE10008D89C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4310D89E1F14750E0008D89C /* AddLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		4310D8A21F14958E0008D89C /* shareLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shareLinkViewController.swift; sourceTree = "<group>"; };
+		43392AFC1F19D4CE0013B3C5 /* NetworkConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConvenience.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				4310D87B1F12C5E20008D89C /* AppDelegate.swift */,
 				4310D8941F13072A0008D89C /* Constants.swift */,
 				4310D8961F13084C0008D89C /* NetworkRequests.swift */,
+				43392AFC1F19D4CE0013B3C5 /* NetworkConvenience.swift */,
 				4310D8981F13E9280008D89C /* Annotations.swift */,
 			);
 			name = Model;
@@ -190,6 +193,7 @@
 			files = (
 				4310D8951F13072A0008D89C /* Constants.swift in Sources */,
 				4310D89D1F144EE10008D89C /* Extensions.swift in Sources */,
+				43392AFD1F19D4CE0013B3C5 /* NetworkConvenience.swift in Sources */,
 				4310D88E1F12DD8E0008D89C /* LoginViewController.swift in Sources */,
 				4310D8A31F14958E0008D89C /* shareLinkViewController.swift in Sources */,
 				4310D8971F13084C0008D89C /* NetworkRequests.swift in Sources */,

@@ -21,31 +21,16 @@ class MapTableViewController: UIViewController {
         super.viewWillAppear(animated)
         if StudentInformation.tableViewShouldReloadData {
             if StudentInformation.shouldReloadData { // table was opened first and needs to get stuff
-                let values: [String: String] = [    // headers
-                    Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
-                    Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey
-                ]
-
-                NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.studentLocationsGETURL, addValues: values, httpBody: nil, completionHandler: {(data, error) in
-                    guard let data = data, error == nil else {
-                        self.displayError(message: "Pin loading error")
-                        return
-                    }
-                    //print(data)
-                    
-                    guard let results = data["results"] as? [[String: AnyObject]] else {
-                        self.displayError(title: "Pin loading error", message: "Error with GETting map pins")
-                        return
-                    }
-                    _ = model(allPoints: results)
+                NetworkRequests.reloadData(err: {
+                    errString in
+                    self.displayError(message: errString)
+                }, completion: {
                     StudentInformation.tableViewShouldReloadData = false
+                    DispatchQueue.main.async {
+                        self.mapTableView.reloadData()
+                    }
                 })
-            
             }
-            DispatchQueue.main.async {
-                self.mapTableView.reloadData()
-            }
-            StudentInformation.tableViewShouldReloadData = false
         }
     }
 }

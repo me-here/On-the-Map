@@ -26,7 +26,6 @@ class LoginViewController: UIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         unsubscribeFromKeyboardNotifications()
-        
         emailField.text = ""
         passwordField.text = ""
     }
@@ -48,73 +47,26 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginPressed(_ sender: Any) {
-        guard !(emailField.text?.isEmpty)! && !(passwordField.text?.isEmpty)! else {
+        guard let email = emailField.text, let password = passwordField.text, !email.isEmpty && !password.isEmpty else {
             self.displayError(title: "Empty Field/s", message: "Email and/ or password empty")
             return
         }
         
         self.startAnimating()
-        
-        let headers = ["Accept": "application/json",
-                       "Content-Type": "application/json"]
-        
-        let httpBody = "{\"udacity\": {\"username\": \"\(emailField.text ?? "")\", \"password\": \"\(passwordField.text ?? "")\"}}"
-        NetworkRequests.requestWith(requestType: Constants.requestType.POST.rawValue, requestURL: Constants.Udacity.sessionURL, addValues: headers, httpBody: httpBody,isUdacityRequest: true, completionHandler: {(data, error) in
-            guard let data = data, error == nil else {
-                self.displayError(message: "Error with POST.")
-                self.stopAnimating()
-                return
-            }
-            
-            guard let account = data["account"] as? [String: AnyObject],
-                let registered = account["registered"] as? Bool,
-                let key = account["key"] as? String else {
-                    self.displayError(message: "Account not registered or incorrect username/ password.")
-                    self.stopAnimating()
-                    return
-            }
-            
-            StudentInformation.userID = key
-            
-            guard let session = data["session"] as? [String: AnyObject],
-                let id = session["id"] as? String else {
-                    self.displayError(title: "GET Failure", message: "Couldn't retreive session id")
-                    self.stopAnimating()
-                    return
-            }
-            
-            print(id)
-            print(registered)
-            self.getName()
+        NetworkRequests.login(email: email, password: password, err: {
+            errorString in
+            self.stopAnimating()
+            self.displayError(message: errorString)
+        }, completion: {
+            NetworkRequests.getName(err: {
+                errorString in
+                self.displayError(message: errorString)
+            })
             
             self.stopAnimating()
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "loginSegue", sender: self)
             }
-        })
-    }
-    
-    private func getName() {
-        NetworkRequests.requestWith(requestType: Constants.requestType.GET.rawValue, requestURL: Constants.Udacity.usersURL + StudentInformation.userID, addValues: [:], httpBody: nil, isUdacityRequest: true, completionHandler: {
-            (data, error) in
-            guard error == nil, let data = data else {
-                self.displayError(message: "Network error")
-                return
-            }
-            guard let user = data["user"] as? [String: AnyObject],
-                let firstName = user["first_name"] as? String,
-                let lastName = user["last_name"] as? String else {
-                    self.displayError(title: "Username failure", message: "Could not get username")
-                    return
-            }
-            
-            // Every Udacity user must have these properties
-            
-            
-            // Give them to model
-            StudentInformation.firstName = firstName
-            StudentInformation.lastName = lastName
-            print(firstName, lastName)
         })
     }
     

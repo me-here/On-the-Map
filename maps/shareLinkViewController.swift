@@ -29,8 +29,19 @@ class shareLinkViewController: UIViewController {
             return
         }
         print(linkText)
-        // make post request
+        self.pointAnnotation.subtitle = linkText
+        NetworkRequests.shareLink(linkToShare: linkText, latitude: self.pointAnnotation.coordinate.latitude, longitude: self.pointAnnotation.coordinate.longitude, err: {
+            errString in
+            self.displayError(message: errString)
+        }, completion: {
+            DispatchQueue.main.async {
+                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            }
+        })
         
+        
+        // make post request
+        /*
         let values = [Constants.Parse.parameters.AppID: Constants.Parse.values.appID,
                       Constants.Parse.parameters.APIKey: Constants.Parse.values.APIKey,
                       Constants.Parse.parameters.contentType: Constants.Parse.values.contentType
@@ -56,7 +67,7 @@ class shareLinkViewController: UIViewController {
                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 }
             
-        })
+        })*/
     }
     
     override func viewDidLoad() {
@@ -76,6 +87,19 @@ extension shareLinkViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    override func displayError(title:String? = "POST failure",message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(.init(title: "Retry", style: .default, handler: {_ in
+            self.submit(self)
+        }))
+        alert.addAction(.init(title: "Ok.", style: .default, handler: {_ in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 
